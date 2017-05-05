@@ -5,6 +5,7 @@ from rest_api_app.serializers import UserSerializer, GroupSerializer, ProfileSer
 from rest_api_app.models import Profile
 from rest_framework.response import Response
 from rest_framework.generics import RetrieveAPIView
+from rest_framework.decorators import throttle_classes, authentication_classes, permission_classes
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -21,8 +22,11 @@ class GroupViewSet(viewsets.ModelViewSet):
     """
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
-
+   
+   
 class ProfileViewSet(viewsets.ReadOnlyModelViewSet):
+    authentication_classes = []
+    permission_classes = []
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
     lookup_field = 'user__username'
